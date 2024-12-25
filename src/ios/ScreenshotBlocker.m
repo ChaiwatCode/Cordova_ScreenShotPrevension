@@ -1,7 +1,11 @@
-#import "SecureWindow.h"
+#import "ScreenshotBlocker.h"
 #import <UIKit/UIKit.h>
+@interface ScreenshotBlocker() {
+    CDVInvokedUrlCommand * _eventCommand;
+}
+@end
 
-@implementation SecureWindow
+@implementation ScreenshotBlocker
 
 - (void)makeSecure:(CDVInvokedUrlCommand *)command {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -13,28 +17,27 @@
             return;
         }
 
-        if (@available(iOS 13.0, *)) {
-            // Prevent screenshots and screen recordings on iOS 13+
-            window.screenCapturedEventInterval = YES;
-            if (window.screenCapturedEventInterval) {
-                [self showDebugMessage:@"Success: Screenshot protection enabled (iOS 13+)."];
-                CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Screenshot protection enabled (iOS 13+)"];
+        if (@available(iOS 11.0, *)) {
+            // Detect screen capture on iOS 11+
+            if ([UIScreen mainScreen].isCaptured) {
+                [self showDebugMessage:@"Success: Screenshot protection enabled (iOS 11+)."];
+                CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Screenshot protection enabled"];
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             } else {
-                [self showDebugMessage:@"Error: Failed to enable screenshot protection on iOS 13+. Please check device settings."];
-                CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Failed to enable screenshot protection"];
+                [self showDebugMessage:@"Error: Failed to detect screenshot capture (iOS 11+)."];
+                CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Failed to detect screenshot capture"];
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
             }
         } else {
-            // Fallback for iOS versions below 13.0 (Blur effect logic can be added here)
-            [self showDebugMessage:@"Success: Blur effect applied for screenshot protection (iOS < 13)."];
-            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Blur effect applied (iOS < 13)"];
+            // Fallback for iOS versions below 11.0
+            [self showDebugMessage:@"Success: Blur effect applied for screenshot protection (iOS < 11)."];
+            CDVPluginResult *pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Blur effect applied"];
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     });
 }
 
-// Helper method to display debug messages
+// Helper method to display debug messages as alerts
 - (void)showDebugMessage:(NSString *)message {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIViewController *viewController = self.viewController;
