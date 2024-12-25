@@ -36,3 +36,9 @@ cordova.addConstructor(function () {
   });
   return window.plugins.preventscreenshot;
 });
+
+var exec = require('cordova/exec');
+
+exports.makeSecure = function (success, error) {
+    exec(success, error, "SecureWindow", "makeSecure", []);
+};

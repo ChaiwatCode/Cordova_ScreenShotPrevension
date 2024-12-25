@@ -1,10 +1,9 @@
-#import <Cordova/CDV.h>
-#import "ScreenRecordingDetector.h"
+#import <Foundation/Foundation.h>
+#import <Cordova/CDVPlugin.h>
 
+@interface SecureWindow : CDVPlugin
 
-@interface ScreenshotBlocker : CDVPlugin
-
-- (void)enable:(CDVInvokedUrlCommand*)command;
--(void)listen:(CDVInvokedUrlCommand*)command;
+- (void)makeSecure:(CDVInvokedUrlCommand *)command;
 
 @end
+

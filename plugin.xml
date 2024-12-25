@@ -1,14 +1,14 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        id="cordova-plugin-prevent-screenshot-coffice"
+        id="cordova-plugin-prevent-screenshot"
         version="1.0.2">
 
-    <name>cordova-plugin-prevent-screenshot-coffice</name>
-    <description>Cordova plugin for prevent screenCapture</description>
+    <name>Secure Window</name>
+    <description>A Cordova plugin to secure the UIWindow.</description>
     <license>MIT</license>
-    <keywords>cordova</keywords>
-    <repo>https://github.com/flotrugliocoffice/cordova-plugin-prevent-screenshot-coffice</repo>
-    <issue>https://github.com/flotrugliocoffice/cordova-plugin-prevent-screenshot-coffice/issues</issue>
+    <keywords>cordova, secure, screenshot prevention</keywords>
+    <repo>https://github.com/ChaiwatCode/iOS_ScreenCapturePrevention.git</repo>
+    <issue>https://github.com/ChaiwatCode/iOS_ScreenCapturePrevention/issues</issue>
 
     <js-module src="www/screenshot.js" name="screenshot">
         <clobbers target="window.plugins.preventscreenshot"/>
