@@ -1,3 +1,18 @@
-<platform name="ios">
-    <preference name="deployment-target" value="11.0" />
-</platform>
+<?xml version="1.0" encoding="utf-8"?>
+<widget id="cordova-plugin-prevent-screenshot" version="1.0.0">
+    <name>Cordova Screenshot Prevention</name>
+    <description>Prevent screenshots in a Cordova app</description>
+    <author email="chaiwat@ctc-g.co.th" href="http://ctc.com">
+        Chaiwat Meetanatharvorn
+    </author>
+
+    <!-- Other preferences and plugin configurations -->
+
+    <platform name="ios">
+            <preference name="deployment-target" value="11.0" />
+    <plugin name="cordova-plugin-prevent-screenshot" spec="git+https://github.com/ChaiwatCode/Cordova_ScreenShotPrevension.git" />
+
+    </platform>
+</widget>
+
+

@@ -29,5 +29,8 @@
     "ecosystem:cordova",
     "cordova-android",
     "cordova-ios"
-  ]
+  ],
+  "devDependencies": {
+    "cordova-ios": "^7.1.1"
+  }
 }
