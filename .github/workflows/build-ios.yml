@@ -1,0 +1,51 @@
+name: Build iOS Cordova App
+
+on:
+  push:
+    branches:
+      - main  # Run the workflow when changes are pushed to the main branch
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16  # Ensure the correct version of Node.js
+
+    # Install Cordova globally
+    - name: Install Cordova
+      run: npm install -g cordova
+
+    # Install project dependencies
+    - name: Install dependencies
+      run: npm install
+
+    # Add iOS platform
+    - name: Add iOS platform
+      run: cordova platform add ios
+
+    # Build the iOS project
+    - name: Build for iOS
+      env:
+        # Use a development team and provisioning profile to sign the app
+        IOS_DEVELOPMENT_TEAM: ${{ secrets.IOS_DEVELOPMENT_TEAM }}
+        IOS_PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.IOS_PROVISIONING_PROFILE }}
+      run: |
+        cordova build ios --device --codeSignIdentity="iPhone Developer" \
+          --developmentTeam=$IOS_DEVELOPMENT_TEAM \
+          --provisioningProfile=$IOS_PROVISIONING_PROFILE_SPECIFIER
+
+    # Upload build artifacts (optional)
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: iOS-Build
+        path: platforms/ios/build/device/*.ipa
