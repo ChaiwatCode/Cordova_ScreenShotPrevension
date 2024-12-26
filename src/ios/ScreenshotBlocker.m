@@ -8,7 +8,7 @@
 @implementation ScreenshotBlocker
 
 - (void)makeSecure:(CDVInvokedUrlCommand *)command {
-    dispatch_async(dispatch_get_main_queue(), ^{
+  /*  dispatch_async(dispatch_get_main_queue(), ^{
         UIWindow *window = self.viewController.view.window;
         if (!window) {
             [self showDebugMessage:@"Error: Main window is unavailable."];
@@ -35,11 +35,11 @@
             [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
         }
     });
-}
+}*/
 
 // Helper method to display debug messages as alerts
 - (void)showDebugMessage:(NSString *)message {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    /*  dispatch_async(dispatch_get_main_queue(), ^{
         UIViewController *viewController = self.viewController;
         if (!viewController) return;
 
@@ -49,7 +49,7 @@
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:okAction];
         [viewController presentViewController:alert animated:YES completion:nil];
-    });
+    });*/
 }
 
 @end
